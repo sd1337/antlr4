@@ -154,7 +154,7 @@ namespace pattern {
     virtual std::vector<std::unique_ptr<Token>> tokenize(const std::string &pattern);
 
     /// Split "<ID> = <e:expr>;" into 4 chunks for tokenizing by tokenize().
-    virtual std::vector<Chunk> split(const std::string &pattern);
+    virtual std::vector<std::unique_ptr<Chunk>> split(const std::string &pattern);
 
   protected:
     std::string _start;
@@ -176,6 +176,10 @@ namespace pattern {
   private:
     Lexer *_lexer;
     Parser *_parser;
+    ListTokenSource* tokenSrc;
+    CommonTokenStream* tokens;
+    ParserInterpreter* parserInterp;
+    std::vector<std::unique_ptr<ANTLRInputStream>> inputStreams;
 
     void InitializeInstanceFields();
   };
